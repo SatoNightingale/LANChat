@@ -1,0 +1,44 @@
+[gd_scene load_steps=6 format=3 uid="uid://dww3l6v62va01"]
+
+[ext_resource type="Script" path="res://scripts/msg_area.gd" id="1_5bydr"]
+[ext_resource type="AudioStream" uid="uid://cl04mk4u7vylt" path="res://assets/beep.wav" id="2_s0jv6"]
+[ext_resource type="PackedScene" uid="uid://cgj0m5u5hhflr" path="res://scenes/input_bar.tscn" id="2_ydna0"]
+[ext_resource type="AudioStream" uid="uid://bh46cibsq6cjv" path="res://assets/message.wav" id="4_ndpid"]
+[ext_resource type="AudioStream" uid="uid://dt2ddpg6xow6x" path="res://assets/line.wav" id="4_u8nwr"]
+
+[node name="MsgArea" type="VBoxContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_5bydr")
+
+[node name="Messages" type="ScrollContainer" parent="."]
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="List" type="VBoxContainer" parent="Messages"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 10
+
+[node name="InputBar" parent="." instance=ExtResource("2_ydna0")]
+layout_mode = 2
+size_flags_vertical = 8
+
+[node name="sound_msg_out" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_u8nwr")
+
+[node name="sound_msg_in" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_ndpid")
+
+[node name="sound_beep" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_s0jv6")
+
+[connection signal="resized" from="Messages" to="." method="_on_messages_resized"]
+[connection signal="send_message" from="InputBar" to="." method="_on_input_bar_send_message"]
