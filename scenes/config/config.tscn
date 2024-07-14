@@ -1,0 +1,127 @@
+[gd_scene load_steps=6 format=3 uid="uid://npc8typo0va5"]
+
+[ext_resource type="Script" path="res://scenes/config/config.gd" id="1_hi6dr"]
+[ext_resource type="Texture2D" uid="uid://dj6dapnlhmkhy" path="res://scenes/msg area/input bar/close.png" id="2_ihpwa"]
+[ext_resource type="PackedScene" uid="uid://cetka76afupw7" path="res://scenes/config/connect/connect.tscn" id="3_gwj0b"]
+[ext_resource type="PackedScene" uid="uid://b4gllti557ki5" path="res://scenes/config/perfil/perfil.tscn" id="4_4fg5k"]
+[ext_resource type="PackedScene" uid="uid://b1r5vd4jd78t8" path="res://scenes/config/misc/misc.tscn" id="5_y14x3"]
+
+[node name="Config" type="ColorRect"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.12549, 0.12549, 0.12549, 0.627451)
+script = ExtResource("1_hi6dr")
+
+[node name="Center" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="PanelContainer" parent="Center"]
+custom_minimum_size = Vector2(382, 230)
+layout_mode = 2
+
+[node name="Close" type="Button" parent="Center/Panel"]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+icon = ExtResource("2_ihpwa")
+expand_icon = true
+
+[node name="margin" type="MarginContainer" parent="Center/Panel"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="cont" type="HBoxContainer" parent="Center/Panel/margin"]
+clip_contents = true
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="ConfigList" type="ItemList" parent="Center/Panel/margin/cont"]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+item_count = 3
+item_0/text = "Conexión"
+item_1/text = "Perfil"
+item_2/text = "Otros"
+
+[node name="Connect" parent="Center/Panel/margin/cont" instance=ExtResource("3_gwj0b")]
+visible = false
+layout_mode = 2
+
+[node name="Perfil" parent="Center/Panel/margin/cont" instance=ExtResource("4_4fg5k")]
+visible = false
+layout_mode = 2
+
+[node name="Misc" parent="Center/Panel/margin/cont" instance=ExtResource("5_y14x3")]
+clip_contents = false
+layout_mode = 2
+
+[node name="WelcomeScreen" type="Window" parent="."]
+title = "Bienvenido a LANChat"
+initial_position = 1
+size = Vector2i(500, 370)
+visible = false
+
+[node name="ColorRect" type="ColorRect" parent="WelcomeScreen"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.501961)
+
+[node name="MarginContainer" type="MarginContainer" parent="WelcomeScreen"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="VBoxContainer" type="VBoxContainer" parent="WelcomeScreen/MarginContainer"]
+layout_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="WelcomeScreen/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+bbcode_enabled = true
+text = "[center]¡Bienvenido a LANChat![/center]
+
+
+	Parece que es la primera vez que usas este programa. LANChat es una aplicación de mensajería para redes locales, creada por Satoshi en Godot, con amor para Airi y Santiago ♥
+
+Para usarla, debes conectarte a una red de área local (LAN). Entonces debes elegir dos modos: puedes crear tu propio chat o unirte a un chat existente.
+
+	👉 Para crear tu propio chat, escribe el puerto en la casilla \"Puerto\" (casi siempre es mejor dejar el puerto por defecto) y a continuación haz clic en Crear. La casilla IP no se usa aquí
+
+	👉 Para conectarte a un chat, debes escribir la dirección IP del usuario que creó el chat (NO la que aparece en su casilla IP, sino su dirección en la red local, que puede verse en las configuraciones de la red) y el puerto que este seleccionó (ahora sí, el que le aparece en el programa). Una vez hecho esto, haz clic en Conectar
+
+Puedes acceder a las configuraciones desde la interfaz principal tocando el botón de engranaje ⚙ a la derecha de la barra superior. A la izquierda de esta, los botones Crear y Conectar te permiten conectarte rápidamente. No olvides configurar tu nombre de usuario, tu color y la foto de perfil con la que te verán los intengrantes del chat. En LANChat, el color de usuario es público, lo que quiere decir que todos te verán con el color que seleccionaste.
+
+[url=https://github.com/SatoNightingale/LANChat]Repositorio oficial[/url]
+[url=https://github.com/SatoNightingale/LANChat/releases/latest]Descargar última versión[/url]
+
+[center]¡Buena suerte y disfruta de LANChat![/center]"
+
+[connection signal="pressed" from="Center/Panel/Close" to="." method="_on_close_pressed"]
+[connection signal="item_selected" from="Center/Panel/margin/cont/ConfigList" to="." method="_on_config_list_item_selected"]
+[connection signal="request_open_help" from="Center/Panel/margin/cont/Misc" to="." method="_on_misc_request_open_help"]
+[connection signal="close_requested" from="WelcomeScreen" to="." method="_on_welcome_screen_close_requested"]
+[connection signal="meta_clicked" from="WelcomeScreen/MarginContainer/VBoxContainer/RichTextLabel" to="." method="_on_rich_text_label_meta_clicked"]

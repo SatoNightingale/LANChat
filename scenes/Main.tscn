@@ -1,0 +1,76 @@
+[gd_scene load_steps=8 format=3 uid="uid://rr7kmdn7acq6"]
+
+[ext_resource type="Script" path="res://scenes/network signals.gd" id="1_2t432"]
+[ext_resource type="PackedScene" uid="uid://c077waqv5l4wq" path="res://scenes/topbar/top_bar.tscn" id="2_x8pb6"]
+[ext_resource type="PackedScene" uid="uid://b288jtddrtubd" path="res://scenes/sidebar/sidebar.tscn" id="3_e3ctb"]
+[ext_resource type="PackedScene" uid="uid://npc8typo0va5" path="res://scenes/config/config.tscn" id="4_50mh8"]
+[ext_resource type="PackedScene" uid="uid://dww3l6v62va01" path="res://scenes/msg area/msg_area.tscn" id="4_s5a2t"]
+[ext_resource type="PackedScene" uid="uid://bjivdm0a0sd3l" path="res://scenes/Updater/Updater.tscn" id="6_rf8nt"]
+
+[sub_resource type="Theme" id="Theme_mu3a0"]
+
+[node name="Main" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_mu3a0")
+script = ExtResource("1_2t432")
+metadata/_edit_lock_ = true
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.196078, 0.2, 0.227451, 1)
+
+[node name="margin" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+metadata/_edit_lock_ = true
+
+[node name="Frame" type="VBoxContainer" parent="margin"]
+layout_mode = 2
+metadata/_edit_lock_ = true
+
+[node name="TopBar" parent="margin/Frame" instance=ExtResource("2_x8pb6")]
+layout_mode = 2
+size_flags_horizontal = 1
+
+[node name="Main" type="HSplitContainer" parent="margin/Frame"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Sidebar" parent="margin/Frame/Main" instance=ExtResource("3_e3ctb")]
+clip_contents = true
+layout_mode = 2
+
+[node name="MsgArea" parent="margin/Frame/Main" instance=ExtResource("4_s5a2t")]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+
+[node name="Config" parent="." instance=ExtResource("4_50mh8")]
+visible = false
+layout_mode = 1
+
+[node name="Updater" parent="." instance=ExtResource("6_rf8nt")]
+
+[connection signal="tree_exiting" from="." to="." method="_on_tree_exiting"]
+[connection signal="request_break_connection" from="margin/Frame/TopBar" to="." method="_on_request_disconnect"]
+[connection signal="request_connect" from="margin/Frame/TopBar" to="." method="_on_request_connect"]
+[connection signal="request_host" from="margin/Frame/TopBar" to="." method="_on_request_host"]
+[connection signal="beep_user" from="margin/Frame/Main/Sidebar" to="." method="_on_sidebar_beep_user"]
+[connection signal="request_update_peer" from="Config" to="." method="_on_request_update_peer"]

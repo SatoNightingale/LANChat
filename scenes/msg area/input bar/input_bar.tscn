@@ -1,0 +1,98 @@
+[gd_scene load_steps=6 format=3 uid="uid://cgj0m5u5hhflr"]
+
+[ext_resource type="Texture2D" uid="uid://dj6dapnlhmkhy" path="res://scenes/msg area/input bar/close.png" id="1_cgcq5"]
+[ext_resource type="Script" path="res://scenes/msg area/input bar/input_bar.gd" id="1_wb2vg"]
+[ext_resource type="Texture2D" uid="uid://cjdskrk5ljbf1" path="res://scenes/msg area/input bar/ic_action_send_now.png" id="2_ikhqh"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_boeko"]
+bg_color = Color(0.180392, 0.180392, 0.180392, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2kl2g"]
+bg_color = Color(0.12549, 0.12549, 0.12549, 1)
+border_width_left = 2
+
+[node name="InputBar" type="HBoxContainer"]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 35.0
+grow_horizontal = 2
+script = ExtResource("1_wb2vg")
+
+[node name="Write" type="VBoxContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+theme_override_constants/separation = 0
+
+[node name="ReplyContainer" type="PanelContainer" parent="Write"]
+visible = false
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_boeko")
+
+[node name="margin" type="MarginContainer" parent="Write/ReplyContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="Text" type="PanelContainer" parent="Write/ReplyContainer/margin"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_2kl2g")
+
+[node name="margin" type="MarginContainer" parent="Write/ReplyContainer/margin/Text"]
+layout_mode = 2
+theme_override_constants/margin_left = 6
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 2
+theme_override_constants/margin_bottom = 2
+
+[node name="cont" type="HBoxContainer" parent="Write/ReplyContainer/margin/Text/margin"]
+layout_mode = 2
+alignment = 1
+
+[node name="Reply" type="RichTextLabel" parent="Write/ReplyContainer/margin/Text/margin/cont"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/normal_font_size = 14
+bbcode_enabled = true
+scroll_active = false
+
+[node name="Close" type="Button" parent="Write/ReplyContainer/margin/Text/margin/cont"]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+icon = ExtResource("1_cgcq5")
+expand_icon = true
+
+[node name="MsgEdit" type="TextEdit" parent="Write"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "Escribe un mensaje"
+wrap_mode = 1
+scroll_fit_content_height = true
+
+[node name="SendButton" type="Button" parent="."]
+custom_minimum_size = Vector2(35, 35)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+text = "Enviar"
+expand_icon = true
+
+[node name="TextureButton" type="TextureButton" parent="."]
+visible = false
+custom_minimum_size = Vector2(35, 35)
+layout_mode = 2
+texture_normal = ExtResource("2_ikhqh")
+texture_pressed = ExtResource("2_ikhqh")
+ignore_texture_size = true
+stretch_mode = 5
+
+[connection signal="gui_input" from="Write/ReplyContainer/margin/Text/margin/cont/Reply" to="." method="_on_reply_gui_input"]
+[connection signal="pressed" from="Write/ReplyContainer/margin/Text/margin/cont/Close" to="." method="_on_close_pressed"]
+[connection signal="gui_input" from="Write/MsgEdit" to="." method="_on_msg_edit_gui_input"]
+[connection signal="pressed" from="SendButton" to="." method="_on_send_button_pressed"]
