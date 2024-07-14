@@ -1,0 +1,61 @@
+[gd_scene load_steps=3 format=3 uid="uid://c077waqv5l4wq"]
+
+[ext_resource type="Script" path="res://scenes/topbar/top_bar.gd" id="1_cniq2"]
+[ext_resource type="Texture2D" uid="uid://bujuh6r3h5whw" path="res://scenes/topbar/config.png" id="2_6gd1u"]
+
+[node name="TopBar" type="PanelContainer"]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 38.0
+grow_horizontal = 2
+size_flags_horizontal = 3
+script = ExtResource("1_cniq2")
+
+[node name="margin" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 3
+theme_override_constants/margin_top = 3
+theme_override_constants/margin_right = 3
+theme_override_constants/margin_bottom = 3
+
+[node name="row" type="HBoxContainer" parent="margin"]
+layout_mode = 2
+
+[node name="Connection" type="HBoxContainer" parent="margin/row"]
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+alignment = 1
+
+[node name="Host" type="Button" parent="margin/row/Connection"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Crear"
+
+[node name="Connect" type="Button" parent="margin/row/Connection"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Conectar
+"
+
+[node name="Disconnect" type="Button" parent="margin/row/Connection"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Desconectarse"
+
+[node name="PeerState" type="Label" parent="margin/row"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Desconectado"
+horizontal_alignment = 1
+
+[node name="Config" type="Button" parent="margin/row"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+icon = ExtResource("2_6gd1u")
+expand_icon = true
+
+[connection signal="pressed" from="margin/row/Connection/Host" to="." method="_on_host_pressed"]
+[connection signal="pressed" from="margin/row/Connection/Connect" to="." method="_on_connect_pressed"]
+[connection signal="pressed" from="margin/row/Connection/Disconnect" to="." method="_on_disconnect_pressed"]
+[connection signal="pressed" from="margin/row/Config" to="." method="_on_config_pressed"]

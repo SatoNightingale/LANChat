@@ -1,0 +1,33 @@
+[gd_scene load_steps=2 format=3 uid="uid://ch7doksk2wjds"]
+
+[ext_resource type="Script" path="res://scenes/msg area/msg talk/msg line/message.gd" id="1_uvmvn"]
+
+[node name="Label" type="RichTextLabel"]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 23.0
+grow_horizontal = 2
+size_flags_horizontal = 3
+focus_mode = 2
+bbcode_enabled = true
+text = "prueba"
+fit_content = true
+scroll_active = false
+selection_enabled = true
+script = ExtResource("1_uvmvn")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+visible = false
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 1
+color = Color(0.376471, 0.376471, 0.376471, 0.768627)
+
+[connection signal="gui_input" from="." to="." method="_on_gui_input"]

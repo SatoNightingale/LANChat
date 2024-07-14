@@ -11,12 +11,12 @@ config_version=5
 [application]
 
 config/name="LANChat"
-config/version="1.2.0.0"
+config/version="1.3.0.0"
 run/main_scene="res://scenes/Main.tscn"
 config/features=PackedStringArray("4.2", "GL Compatibility")
 boot_splash/show_image=false
 config/icon="res://.assets_no_import/Icon3/Icon3-256.png"
-config/windows_native_icon="res://.assets_no_import/Icon3/Icon3.ico"
+config/windows_native_icon="res://Icon.ico"
 
 [audio]
 

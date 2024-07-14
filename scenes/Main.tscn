@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://rr7kmdn7acq6"]
+[gd_scene load_steps=8 format=3 uid="uid://rr7kmdn7acq6"]
 
-[ext_resource type="Script" path="res://scripts/network.gd" id="1_xtewn"]
-[ext_resource type="PackedScene" uid="uid://c077waqv5l4wq" path="res://scenes/top_bar.tscn" id="2_x8pb6"]
-[ext_resource type="PackedScene" uid="uid://b288jtddrtubd" path="res://scenes/sidebar.tscn" id="3_e3ctb"]
-[ext_resource type="PackedScene" uid="uid://npc8typo0va5" path="res://scenes/config.tscn" id="4_50mh8"]
-[ext_resource type="PackedScene" uid="uid://dww3l6v62va01" path="res://scenes/msg_area.tscn" id="4_s5a2t"]
+[ext_resource type="Script" path="res://scenes/network signals.gd" id="1_2t432"]
+[ext_resource type="PackedScene" uid="uid://c077waqv5l4wq" path="res://scenes/topbar/top_bar.tscn" id="2_x8pb6"]
+[ext_resource type="PackedScene" uid="uid://b288jtddrtubd" path="res://scenes/sidebar/sidebar.tscn" id="3_e3ctb"]
+[ext_resource type="PackedScene" uid="uid://npc8typo0va5" path="res://scenes/config/config.tscn" id="4_50mh8"]
+[ext_resource type="PackedScene" uid="uid://dww3l6v62va01" path="res://scenes/msg area/msg_area.tscn" id="4_s5a2t"]
+[ext_resource type="PackedScene" uid="uid://bjivdm0a0sd3l" path="res://scenes/Updater/Updater.tscn" id="6_rf8nt"]
 
 [sub_resource type="Theme" id="Theme_mu3a0"]
 
@@ -16,7 +17,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = SubResource("Theme_mu3a0")
-script = ExtResource("1_xtewn")
+script = ExtResource("1_2t432")
 metadata/_edit_lock_ = true
 
 [node name="ColorRect" type="ColorRect" parent="."]
@@ -65,11 +66,11 @@ layout_mode = 2
 visible = false
 layout_mode = 1
 
+[node name="Updater" parent="." instance=ExtResource("6_rf8nt")]
+
 [connection signal="tree_exiting" from="." to="." method="_on_tree_exiting"]
 [connection signal="request_break_connection" from="margin/Frame/TopBar" to="." method="_on_request_disconnect"]
 [connection signal="request_connect" from="margin/Frame/TopBar" to="." method="_on_request_connect"]
 [connection signal="request_host" from="margin/Frame/TopBar" to="." method="_on_request_host"]
 [connection signal="beep_user" from="margin/Frame/Main/Sidebar" to="." method="_on_sidebar_beep_user"]
-[connection signal="request_connect" from="Config" to="." method="_on_request_connect"]
-[connection signal="request_host" from="Config" to="." method="_on_request_host"]
 [connection signal="request_update_peer" from="Config" to="." method="_on_request_update_peer"]
